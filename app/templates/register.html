@@ -1,0 +1,82 @@
+{% extends "home_layout.html" %}
+{% block content %}
+    <div class="container user-register">
+            <a href="{{url_for('home')}}"><img src="{{url_for('static',filename='images/instagram_logo.png')}}" class="register-logo"></a>
+            <p class="register-info">Sign up to see photos and videos from your friends.</p>
+            <form action="" method="POST" class="register">
+                {{form.hidden_tag()}}
+                <fieldset class="form-group">
+                    <div class="form-group">
+                        {% if form.email.errors %}
+                        {{ form.email(class='form-control is-invalid') }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.email(class='form-control', placeholder='Email...') }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {% if form.fullname.errors %}
+                        {{ form.fullname(class='form-control is-invalid') }}
+                            <div class="invalid-feedback">
+                                {% for error in form.fullname.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                        {{ form.fullname(class='form-control', placeholder="Full Name..") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                    {% if form.username.errors %}
+                    {{ form.username(class='form-control is-invalid') }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                    {{ form.username(class='form-control', placeholder="Username..") }}
+                    {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {% if form.password.errors %}
+                        {{ form.password(class='form-control is-invalid') }}
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                    {{ form.password(class='form-control', placeholder="Your secret...") }}
+                    {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {% if form.confirm_password.errors %}
+                        {{ form.confirm_password(class='form-control is-invalid') }}
+                            <div class="invalid-feedback">
+                                {% for error in form.confirm_password.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                        {{ form.confirm_password(class='form-control', placeholder="Confirm your secret...") }}
+                        {% endif %}
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    {{ form.submit(class = "btn btn-outline-danger btn-block") }}
+                </div>
+            </form>
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    <b>Have an account?</b><a class="ml-2" href="{{url_for('login')}}"}}>Login</a>
+                </small>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
