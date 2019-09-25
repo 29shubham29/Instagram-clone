@@ -2,36 +2,18 @@
 {% block content %}
 <div class="col-md-4">
     {% for post in posts %}
-
-    <div class="card">
-        <a class="lightbox" href="#" data-toggle="modal" data-target="#myModal">
-            <img src="{{ url_for('static',filename='pictures/')}}{{post.image_file}}"
-                class="post-image">
-        </a>
-        <h3>{{ post.author.username }}</h3>
-        <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog user-dialog">
-                <!-- Modal content-->
-                <div class="modal-content user-modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">{{post.author.username}}</h4>
-                        <button type=" button" class="close"
-                            data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body user-posts">
-                        <div class="row user-modal-row">
-                            <div class="col-md-6 ">
-                                <img class="user-img" src="{{image_file}}">
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{ post.caption }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <img src="{{ url_for('static',filename='pictures/')}}{{post.image_file}}"
+        class="post-image">
+    {% if post.user_id !=current_user.id %}
+    {% if current_user.has_liked_post(post) %}
+    <a
+        href="{{ url_for('like_action', post_id=post.id, action='unlike') }}">Unlike</a>
+    {% else %}
+    <a
+        href="{{ url_for('like_action', post_id=post.id, action='like') }}">Like</a>
+    {% endif %}
+    {{ post.likes.count() }} likes
+    {% endif %}
     {% endfor %}
 </div>
 
