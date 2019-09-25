@@ -1,9 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>User: {{user.username}}</h1>
+<h3><span> <img class="rounded-circle account-img" src="{{image_file}}">
+    </span> {{user.username}}</h3>
 {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
-
+<p>{{ user.followers.count() }} followers {{user.followed.count()}} following
+</p>
 {% if current_user.is_authenticated %}
 {% if user == current_user %}
 <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
@@ -12,14 +14,13 @@
 {% else %}
 <p><a href="{{ url_for('unfollow', username=user.username) }}">Unfollow</a></p>
 {% endif %}
-{% endif %}
-{% if not current_user.is_authenticated %}
+{% else %}
 <div class="alert alert-info" role="alert">
     <strong>You must log in to Follow/Unfollow this user.</strong>
 </div>
 {% endif %}
 {% for post in posts %}
-<p>{{ post.author.username }}says: <b>{{ post.body }}</b></p>
+<p>{{ post.author.username }} says: <b>{{ post.body }}</b></p>
 {% endfor %}
 
 {% endblock %}

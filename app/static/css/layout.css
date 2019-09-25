@@ -13,9 +13,11 @@ h1, h2, h3, h4, h5, h6{
     color: #444444;
 }
 
-
+.new-post-user{
+  margin-top:10em;
+}
 .bg-steel{
-    background-color: #ca366f;
+    background-color: #f42d8b;
 }
 .site-header .navbar-nav .nav-link {
     color: #cbd5db;
@@ -83,3 +85,29 @@ h1, h2, h3, h4, h5, h6{
   .account-heading {
     font-size: 2.5rem;
   }
+
+  /* base user styles */
+.post-left{
+  text-align: center;
+  color: #fff;
+  margin-top: 4em
+}
+.post-left p{
+  padding: 20px 20px 0;
+}
+.post-right{
+  border:none;
+  background: #f8f8f8;
+  padding-top:50px;
+}
+.new-post-page{
+  background: #fff;
+    border:1px solid #e6e6e6;
+    box-shadow: 20px 20px 50px 10px pink;
+    margin: 4em 4em;
+    padding:40px;
+}
+.postpage-img{
+  height: 10em;
+    width: 10em;
+}

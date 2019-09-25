@@ -43,3 +43,8 @@ class UpdateForm(FlaskForm):
             if user:
                 raise ValidationError("Oops someone already have this username!!")
 
+
+class PostForm(FlaskForm):
+    image = FileField('Snap',validators = [DataRequired(),FileAllowed(['jpg','png'])])
+    caption = TextAreaField('Caption',validators=[DataRequired(),Length(min=2,max=150)])
+    submit = SubmitField('Post')

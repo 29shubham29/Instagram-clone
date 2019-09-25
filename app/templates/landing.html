@@ -1,14 +1,39 @@
 {% extends "layout.html" %}
 {% block content %}
 {% for post in posts %}
-<article class="media content-section">
-    <div class="media-body">
-        <div class="article-metadata">
-        <a class="mr-2" href="#">{{ post.author }}</a>
+<div class="col-md-4">
+    <div class="card">
+        <a class="lightbox" href="#" data-toggle="modal" data-target="#myModal">
+            <img src="{{image_file}}" class="card-img-top">
+        </a>
+
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog user-dialog">
+                <!-- Modal content-->
+                <div class="modal-content user-modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{post.author}}</h4>
+                        <button type=" button" class="close"
+                            data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body user-posts">
+                        <div class="row user-modal-row">
+                            <div class="col-md-6 ">
+                                <img class="user-img" src="{{image_file}}">
+                            </div>
+                            <div class="col-md-6">
+                                <h3>{{ post.title }}</h3>
+                                <p>{{ post.content }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
-        <p class="article-content">{{ post.content }}</p>
+        <p>
+            {{post.author}}
+        </p>
     </div>
-</article>
+</div>
 {% endfor %}
 {% endblock content %}
