@@ -22,7 +22,6 @@
 <body>
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-            <a class="navbar-brand mr-4" href="/">Instagram</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarToggle" aria-controls="navbarToggle"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -30,8 +29,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link"
-                        href="{{ url_for('home') }}">Home</a>
+                    <a class="navbar-brand mr-4" href="/">Instagram</a>
                 </div>
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
@@ -53,18 +51,16 @@
         </nav>
     </header>
     <main role="main" class="container">
-        <div class="row">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-            {% for category,message in messages %}
-            <div class="alert alert-{{category}}">
-                {{ message }}
-            </div>
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
-            {% block content %}{% endblock %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category,message in messages %}
+        <div class="alert alert-{{category}}">
+            {{ message }}
         </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
     </main>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

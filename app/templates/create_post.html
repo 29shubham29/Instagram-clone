@@ -6,13 +6,13 @@
         <h1>{{current_user.username}}</h1>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12 post-right">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <div class="form-group">
-                {{form.image.label() }}
-                {{ form.image(class="form-control-file")}}
-                {% if form.image.errors %}
-                {% for error in form.image.errors %}
+                {{form.image_file.label() }}
+                {{ form.image_file(class="form-control-file")}}
+                {% if form.image_file.errors %}
+                {% for error in form.image_file.errors %}
                 <span class="text-danger">{{error}}</span><br>
                 {% endfor %}
                 {% endif %}

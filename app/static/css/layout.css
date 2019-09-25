@@ -76,14 +76,14 @@ h1, h2, h3, h4, h5, h6{
   }
 
   .account-img {
-    height: 125px;
-    width: 125px;
+    height: 200px;
+    width: 200px;
     margin-right: 20px;
     margin-bottom: 16px;
   }
 
   .account-heading {
-    font-size: 2.5rem;
+    font-size: 1.5em;
   }
 
   /* base user styles */
@@ -110,4 +110,15 @@ h1, h2, h3, h4, h5, h6{
 .postpage-img{
   height: 10em;
     width: 10em;
+}
+.post-image{
+  height: 300px;
+  width: 300px;
+}
+
+@media only screen and (max-width: 600px) {
+  .account-img{
+    height: 100px;
+    width: 100px;
+  }
 }

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
+from flask_wtf.file import FileField, FileAllowed,FileRequired
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from app.models import User
@@ -45,6 +45,6 @@ class UpdateForm(FlaskForm):
 
 
 class PostForm(FlaskForm):
-    image = FileField('Snap',validators = [DataRequired(),FileAllowed(['jpg','png'])])
+    image_file = FileField('Snap',validators = [FileRequired(), FileAllowed(['jpg','png'])])
     caption = TextAreaField('Caption',validators=[DataRequired(),Length(min=2,max=150)])
     submit = SubmitField('Post')

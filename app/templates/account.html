@@ -1,23 +1,29 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="col-md-12">
-    <div class="media">
-        <img class="rounded-circle account-img" src="{{image_file}}">
+<div class="row">
+    <div class="col-md-4">
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{image_file}}">
+        </div>
+        <div>
+            <button type="button" class="btn btn-info" data-toggle="modal"
+                data-target="#myModal">Edit Profile</button>
+        </div>
+    </div>
+    <div class="col-md-8">
         <div class="media-body">
-            <h3 class="account-heading">{{current_user.username}}</h3>
-            <p class="text-secondary">{{current_user.fullname}}</p>
+            <h4 class="account-heading"><i><b>{{current_user.username}}</b></i>
+            </h4>
+            <p><b>{{ current_user.followers.count() }}</b> followers
+                &nbsp;&nbsp; <b>{{current_user.followed.count()}}</b>
+                following
+            </p>
+            <p class="text-bold"><b>{{current_user.fullname}}</b></p>
             {% if current_user.about_me %}
             <p>{{ current_user.about_me }}</p>
             {% endif %}
-            <p>{{ current_user.followers.count() }} followers
-                {{current_user.followed.count()}}
-                following
-            </p>
+
         </div>
-    </div>
-    <div>
-        <button type="button" class="btn btn-info" data-toggle="modal"
-            data-target="#myModal">Edit Profile</button>
     </div>
 </div>
 
@@ -32,7 +38,7 @@
                     data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form method="POST" enctype="multipart/form-data">
                     {{form.hidden_tag()}}
                     <fieldset class="form-group">
                         <div class="form-group">
