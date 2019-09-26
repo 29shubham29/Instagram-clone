@@ -1,10 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="col-md-6">
-    <h1>Search results:</h1>
+<div class="container">
+    <div class="row">
+        {% if user%}
+        {% for user in user %}
+        <div class="col-md-12 search-result">
+            <h1>Search results: <a
+                    href="{{ url_for('main.user', username=user.username) }}">{{ user.username }}</a>
+            </h1>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h1>No such user found!!</h1>
+        {% endif %}
+    </div>
 </div>
-{% for user in user %}
-<a
-    href="{{ url_for('main.user', username=user.username) }}">{{ user.username }}</a>
-{% endfor %}
 {% endblock %}

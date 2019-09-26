@@ -7,20 +7,7 @@ from app.models import User
 from app.auth import bp
 
 
-@bp.route("/", methods=['GET', 'POST'])
-@bp.route("/home", methods=['GET', 'POST'])
-def home():
-    if current_user.is_authenticated:
-        return redirect(url_for('landing'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(email=form.email.data,fullname=form.fullname.data,username=form.username.data,)
-        user.set_password(form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        flash("Your account has been created! Now you can login!",'success')
-        return redirect(url_for('auth.login'))
-    return render_template('auth/home.html',form=form)
+
 
 @bp.route("/")
 @bp.route("/login", methods=['GET', 'POST'])
@@ -57,4 +44,4 @@ def register():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('auth.home'))
+    return redirect(url_for('main.home'))

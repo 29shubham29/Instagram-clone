@@ -5,10 +5,27 @@ from app import db, app
 from datetime import datetime
 from flask import request, current_app, g
 from app.main.forms import UpdateForm, PostForm, SearchForm
+from app.auth.forms import RegistrationForm
 from flask import render_template, url_for, flash, redirect, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Post
 from app.main import bp
+
+
+@bp.route("/", methods=['GET', 'POST'])
+@bp.route("/home", methods=['GET', 'POST'])
+def home():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.landing'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(email=form.email.data,fullname=form.fullname.data,username=form.username.data,)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash("Your account has been created! Now you can login!",'success')
+        return redirect(url_for('auth.login'))
+    return render_template('auth/home.html',form=form)
 
 @bp.route("/main")
 @login_required
@@ -125,5 +142,5 @@ def before_request():
 def search():
     if not g.search_form.validate():
         return redirect(url_for('main.landing'))
-    user, _ = User.search(g.search_form.q.data)
-    return render_template('search.html', title=('Search'), user=user)
+    user,hit = User.search(g.search_form.q.data)
+    return render_template('search.html', title=('Search'), user=user) if hit!=0 else render_template('search.html', title=('Search'))

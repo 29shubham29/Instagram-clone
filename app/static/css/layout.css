@@ -17,14 +17,15 @@ h1, h2, h3, h4, h5, h6{
   margin-top:10em;
 }
 .bg-steel{
-    background-color: #f42d8b;
+  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
 }
 .site-header .navbar-nav .nav-link {
-    color: #cbd5db;
+    color: white;
+    transition: all 0.5s;
   }
 
   .site-header .navbar-nav .nav-link:hover {
-    color: #ffffff;
+    color: #2b6922;
   }
 
   .site-header .navbar-nav .nav-link.active {
@@ -39,42 +40,6 @@ h1, h2, h3, h4, h5, h6{
     margin-bottom: 20px;
   }
 
-  .article-title {
-    color: #444444;
-  }
-
-  a.article-title:hover {
-    color: #428bca;
-    text-decoration: none;
-  }
-
-  .article-content {
-    white-space: pre-line;
-  }
-
-  .article-img {
-    height: 65px;
-    width: 65px;
-    margin-right: 16px;
-  }
-
-  .article-metadata {
-    padding-bottom: 1px;
-    margin-bottom: 4px;
-    border-bottom: 1px solid #e3e3e3
-  }
-
-  .article-metadata a:hover {
-    color: #333;
-    text-decoration: none;
-  }
-
-  .article-svg {
-    width: 25px;
-    height: 25px;
-    vertical-align: middle;
-  }
-
   .account-img {
     height: 200px;
     width: 200px;
@@ -85,7 +50,6 @@ h1, h2, h3, h4, h5, h6{
   .account-heading {
     font-size: 1.5em;
   }
-
   /* base user styles */
 .post-left{
   text-align: center;
@@ -128,15 +92,17 @@ h1, h2, h3, h4, h5, h6{
   text-decoration: none;
 }
 .post-feed-header {
-  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+  background: #C33764;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #1D2671, #C33764);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #1D2671, #C33764);
   border-radius: 20px;
 }
 .post-feed-header h1{
-  color: #cbd5db;
+  color: white;
   margin-bottom: 5px;
 }
 .lead{
-  color: #cbd5db;
+  color: white;
 }
 #gallery{
   margin-top: 20px;
@@ -158,3 +124,6 @@ h1, h2, h3, h4, h5, h6{
   }
 }
 
+.search-result a{
+  text-decoration: none
+}

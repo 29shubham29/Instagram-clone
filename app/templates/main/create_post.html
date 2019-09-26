@@ -1,39 +1,41 @@
 {% extends "layout.html" %}
-{% block content %}</div>
-<div class="row back new-post-page">
-    <div class="col-lg-6 post-left">
-        <img class="rounded-circle postpage-img" src="{{image_file}}">
-        <h1>{{current_user.username}}</h1>
-    </div>
-    <div class="col-lg-6 col-md-6 col-sm-12 post-right">
-        <form method="POST" enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                {{form.image_file.label() }}
-                {{ form.image_file(class="form-control-file")}}
-                {% if form.image_file.errors %}
-                {% for error in form.image_file.errors %}
-                <span class="text-danger">{{error}}</span><br>
-                {% endfor %}
-                {% endif %}
-            </div>
-            <div class="form-group">
-                {{ form.caption.label(class='form-control-label') }}
-                {% if form.caption.errors %}
-                {{ form.caption(class='form-control is-invalid') }}
-                <div class="invalid-feedback">
-                    {% for error in form.caption.errors %}
-                    <span>{{ error }}</span>
+{% block content %}
+<div class="container">
+    <div class="row back new-post-page">
+        <div class="col-lg-6 col-md-12 col-sm-12 post-left">
+            <img class="rounded-circle postpage-img" src="{{image_file}}">
+            <h1>{{current_user.username}}</h1>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 post-right card">
+            <form method="POST" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{form.image_file.label() }}
+                    {{ form.image_file(class="form-control-file")}}
+                    {% if form.image_file.errors %}
+                    {% for error in form.image_file.errors %}
+                    <span class="text-danger">{{error}}</span><br>
                     {% endfor %}
+                    {% endif %}
                 </div>
-                {% else %}
-                {{ form.caption(class='form-control', rows=6) }}
-                {% endif %}
-            </div>
-            <div class="form-group">
-                {{ form.submit(class = "btn btn-outline-danger btn-block") }}
-            </div>
-        </form>
+                <div class="form-group">
+                    {{ form.caption.label(class='form-control-label') }}
+                    {% if form.caption.errors %}
+                    {{ form.caption(class='form-control is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.caption.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.caption(class='form-control', rows=6) }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class = "btn btn-outline-danger btn-block") }}
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}
