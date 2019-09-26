@@ -1,1 +1,1 @@
-web: flask db upgrade; gunicorn instagram:app
+web: gunicorn instagram:app
