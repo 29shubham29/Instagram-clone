@@ -1,7 +1,7 @@
 {% extends "home_layout.html" %}
 {% block content %}
 <div class="container user-login">
-    <a href="{{url_for('home')}}"><img
+    <a href="{{url_for('auth.home')}}"><img
             src="{{url_for('static',filename='images/instagram_logo.png')}}"
             class="login-logo"></a>
     <form action="" method="POST" class="login">
@@ -47,7 +47,7 @@
         <div class="border-top pt-3">
             <small class="text-muted">
                 Don't have an account?<a class="ml-2"
-                    href="{{url_for('register')}}" }}>Sign up now!</a>
+                    href="{{url_for('auth.register')}}" }}>Sign up now!</a>
             </small>
         </div>
     </form>

@@ -41,12 +41,12 @@
                     <a href="{{ url_for('account') }}"
                         class="nav-item nav-link">{{ current_user.username }}</a>
                     <a class="nav-item nav-link"
-                        href="{{ url_for('logout') }}">Logout</a>
+                        href="{{ url_for('auth.logout') }}">Logout</a>
                     {% else %}
                     <a class="nav-item nav-link"
-                        href="{{ url_for('login') }}">Login</a>
+                        href="{{ url_for('auth.login') }}">Login</a>
                     <a class="nav-item nav-link"
-                        href="{{ url_for('register') }}">Register</a>
+                        href="{{ url_for('auth.register') }}">Register</a>
                     {% endif %}
                 </div>
             </div>

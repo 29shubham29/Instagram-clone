@@ -6,7 +6,6 @@ from app.models import User
 from flask_login import current_user
 
 
-
 class UpdateForm(FlaskForm):
 
     username = StringField('Username', validators=[DataRequired(),Length(min=2,max=15)])
