@@ -7,7 +7,7 @@
     </div>
     <div class="row">
         {% for post in posts %}
-        <div class="col-md-3 col-sm-12 card post-content">
+        <div class="col-md-4 col-sm-9 card post-content">
             <img id="myImg" class="post-image rounded"
                 src="{{ url_for('static',filename='pictures/')}}{{post.image_file}}"
                 alt="Post" ">

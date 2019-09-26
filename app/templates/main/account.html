@@ -2,17 +2,18 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-6">
             <div class="media">
                 <img class="rounded-circle account-img" src="{{image_file}}">
             </div>
             <div>
-                <button type="button" class="btn btn-info ml-4"
+                <button type="button"
+                    class="btn btn-info edit-profile-button ml-4"
                     data-toggle="modal" data-target="#myModal">Edit
                     Profile</button>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 col-sm-6">
             <div class="media-body">
                 <h4 class="account-heading">
                     <i><b>{{current_user.username}}</b></i>
