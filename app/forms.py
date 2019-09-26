@@ -7,21 +7,3 @@ from flask_login import current_user
 
 
 
-class UpdateForm(FlaskForm):
-
-    username = StringField('Username', validators=[DataRequired(),Length(min=2,max=15)])
-    about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
-    image_file = FileField('Update Profile picture',validators = [FileAllowed(['jpg','png'])])
-    submit = SubmitField('Update')
-
-    def validate_username(self,username):
-        if username.data != current_user.username:
-            user  = User.query.filter_by(username=username.data).first()
-            if user:
-                raise ValidationError("Oops someone already have this username!!")
-
-
-class PostForm(FlaskForm):
-    image_file = FileField('Snap',validators = [FileRequired(), FileAllowed(['jpg','png'])])
-    caption = TextAreaField('Caption',validators=[DataRequired(),Length(min=2,max=150)])
-    submit = SubmitField('Post')

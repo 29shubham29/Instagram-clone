@@ -2,7 +2,7 @@ import secrets
 from PIL import Image
 import os
 from app import db, app
-from flask import request
+from flask import request, current_app
 from app.main.forms import UpdateForm, PostForm
 from flask import render_template, url_for, flash, redirect, request
 from flask_login import current_user, login_user, logout_user, login_required
@@ -20,7 +20,7 @@ def save_picture(form_picture):
     random_hex=secrets.token_hex(8)
     _,f_ext=os.path.splitext(form_picture.filename)
     picture_fn = random_hex+f_ext
-    picture_path = os.path.join(app.root_path,'static/pictures', picture_fn)
+    picture_path = os.path.join(current_app.root_path,'static/pictures', picture_fn)
     output_size = (300,300)
     i = Image.open(form_picture)
     i.thumbnail(output_size)
