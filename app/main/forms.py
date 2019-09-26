@@ -1,3 +1,4 @@
+from flask import request
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed,FileRequired
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
@@ -24,3 +25,12 @@ class PostForm(FlaskForm):
     image_file = FileField('Snap',validators = [FileRequired(), FileAllowed(['jpg','png'])])
     caption = TextAreaField('Caption',validators=[DataRequired(),Length(min=2,max=150)])
     submit = SubmitField('Post')
+
+class SearchForm(FlaskForm):
+    q = StringField(('Search'),validators=[DataRequired()])
+    def __init__(self, *args, **kwargs):
+        if 'formdata' not in kwargs:
+            kwargs['formdata'] = request.args
+        if 'csrf_enabled' not in kwargs:
+            kwargs['csrf_enabled'] = False
+        super(SearchForm, self).__init__(*args, **kwargs)

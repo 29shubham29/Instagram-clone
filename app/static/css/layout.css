@@ -112,7 +112,7 @@ h1, h2, h3, h4, h5, h6{
   width: 10em;
 }
 .post-image{
-  height: 300px;
+  height: 15em;
   width: 100%;
   margin: 10px;
 }
@@ -124,7 +124,9 @@ h1, h2, h3, h4, h5, h6{
   width: 300px;
 }
 
-
+.links{
+  text-decoration: none;
+}
 .post-feed-header {
   background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
   border-radius: 20px;

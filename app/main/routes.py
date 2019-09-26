@@ -2,8 +2,9 @@ import secrets
 from PIL import Image
 import os
 from app import db, app
-from flask import request, current_app
-from app.main.forms import UpdateForm, PostForm
+from datetime import datetime
+from flask import request, current_app, g
+from app.main.forms import UpdateForm, PostForm, SearchForm
 from flask import render_template, url_for, flash, redirect, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Post
@@ -19,7 +20,7 @@ def landing():
 def save_picture(form_picture):
     random_hex=secrets.token_hex(8)
     _,f_ext=os.path.splitext(form_picture.filename)
-    picture_fn = random_hex+f_ext
+    picture_fn = random_hex + f_ext
     picture_path = os.path.join(current_app.root_path,'static/pictures', picture_fn)
     output_size = (300,300)
     i = Image.open(form_picture)
@@ -52,10 +53,8 @@ def account():
 @bp.route("/user/<username>")
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    posts = [
-            {'author': user, 'body': 'Test post #1'},
-            {'author': user, 'body': 'Test post #2'}
-        ]
+    posts = Post.query.filter_by(user_id=user.id)
+    print(posts)
     image_file = url_for('static',filename=f'pictures/{user.image_file}')
     return render_template('main/user.html',user=user,posts=posts,image_file=image_file)
 
@@ -118,4 +117,13 @@ def like_action(post_id, action):
         db.session.commit()
     return redirect(request.referrer)
 
+@bp.before_app_request
+def before_request():
+    g.search_form = SearchForm()
 
+@bp.route('/search')
+def search():
+    if not g.search_form.validate():
+        return redirect(url_for('main.landing'))
+    user, _ = User.search(g.search_form.q.data)
+    return render_template('search.html', title=('Search'), user=user)

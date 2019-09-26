@@ -2,13 +2,58 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, login
 from flask_login import UserMixin
-
+from app.search import add_to_index, remove_from_index, query_index
 
 followers = db.Table('followers',
 db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
 db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
 )
-class User(UserMixin,db.Model):
+#elasticsearch here
+class SearchableMixin(object):
+    @classmethod
+    def search(cls, expression):
+        ids, total = query_index(cls.__tablename__, expression)
+        if total == 0:
+            return cls.query.filter_by(id=0), 0
+        when = []
+        for i in range(len(ids)):
+            when.append((ids[i], i))
+        return cls.query.filter(cls.id.in_(ids)).order_by(
+            db.case(when, value=cls.id)), total
+
+    @classmethod
+    def before_commit(cls, session):
+        session._changes = {
+            'add': list(session.new),
+            'update': list(session.dirty),
+            'delete': list(session.deleted)
+        }
+
+    @classmethod
+    def after_commit(cls, session):
+        for obj in session._changes['add']:
+            if isinstance(obj, SearchableMixin):
+                add_to_index(obj.__tablename__, obj)
+        for obj in session._changes['update']:
+            if isinstance(obj, SearchableMixin):
+                add_to_index(obj.__tablename__, obj)
+        for obj in session._changes['delete']:
+            if isinstance(obj, SearchableMixin):
+                remove_from_index(obj.__tablename__, obj)
+        session._changes = None
+
+    @classmethod
+    def reindex(cls):
+        for obj in cls.query:
+            add_to_index(cls.__tablename__, obj)
+
+db.event.listen(db.session, 'before_commit', SearchableMixin.before_commit)
+db.event.listen(db.session, 'after_commit', SearchableMixin.after_commit)
+
+#user model here
+class User(SearchableMixin,UserMixin,db.Model):
+
+    __searchable__=['username']
     id = db.Column(db.Integer,primary_key=True)
     email = db.Column(db.String(120),unique=True, nullable=False)
     fullname = db.Column(db.String(20),unique=True, nullable=False)
@@ -76,6 +121,7 @@ class User(UserMixin,db.Model):
 def load_user(id):
     return User.query.get(int(id))
 
+
 class PostLike(db.Model):
     __tablename__ = 'post_like'
     id = db.Column(db.Integer, primary_key=True)
@@ -90,8 +136,17 @@ class Post(db.Model):
     caption = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
+    comments = db.relationship('Comment',backref='post',lazy=True)
     likes = db.relationship('PostLike', backref='post', lazy='dynamic')
     def __repr__(self):
         return f"Post('{self.caption}', '{self.timestamp}', '{self.user_id}')"
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.String(100), nullable=False)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+
+    def __repr__(self):
+        return f"Comment('{self.body}', '{self.timestamp}')"
 
