@@ -1,20 +1,28 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="col-md-4">
-    {% for post in posts %}
-    <img src="{{ url_for('static',filename='pictures/')}}{{post.image_file}}"
-        class="post-image">
-    {% if post.user_id !=current_user.id %}
-    {% if current_user.has_liked_post(post) %}
-    <a
-        href="{{ url_for('like_action', post_id=post.id, action='unlike') }}">Unlike</a>
-    {% else %}
-    <a
-        href="{{ url_for('like_action', post_id=post.id, action='like') }}">Like</a>
-    {% endif %}
-    {{ post.likes.count() }} likes
-    {% endif %}
-    {% endfor %}
+<div class="container-fluid post-feed-header">
+    <h1 class="display-10 text-center">Feed</h1>
+    <p class="lead text-center">You can see what you have followed!!</p>
 </div>
-
+{% for post in posts %}
+<div class="col-md-4 col-sm-12 card post-content">
+    <img id="myImg" class="post-image rounded"
+        src="{{ url_for('static',filename='pictures/')}}{{post.image_file}}"
+        alt="Post" ">
+    <h3>{{ post.author.username }}</h3>
+    <p>{{ post.caption }}</p>
+    {% if current_user.is_authenticated %}
+    {% if current_user.has_liked_post(post) %}
+    <a href=" {{ url_for('like_action', post_id=post.id, action='unlike') }}"
+        class="like"><i class="fa fa-thumbs-down"
+        aria-hidden="true"></i>Unlike</a>
+    {% else %}
+    <a href="{{ url_for('like_action', post_id=post.id, action='like') }}"
+        class="like"><i class="fa fa-heart fa-1.5x"
+            aria-hidden="true"></i>&nbsp;&nbsp;Like</a>
+    {% endif %}
+    <span>{{ post.likes.count() }} likes</span>
+    {% endif %}
+</div>
+{% endfor %}
 {% endblock content %}

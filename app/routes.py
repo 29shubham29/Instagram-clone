@@ -76,8 +76,11 @@ def save_picture(form_picture):
     _,f_ext=os.path.splitext(form_picture.filename)
     picture_fn = random_hex+f_ext
     picture_path = os.path.join(app.root_path,'static/pictures', picture_fn)
+    output_size = (300,300)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
 
-    form_picture.save(picture_path)
 
     return picture_fn
 
@@ -99,18 +102,7 @@ def account():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     image_file = url_for('static',filename=f'pictures/{current_user.image_file}')
-    posts = [
-        {
-            'author':'shubham.pandey',
-            'title':'First',
-            'content':'hey this is my first blog post'
-        },
-        {
-            'author':'shubham.pandey',
-            'title':'First',
-            'content':'hey this is my first blog post'
-        }
-    ]
+    posts = Post.query.filter_by(user_id=current_user.id)
     return render_template('account.html',title="Account",image_file=image_file,posts=posts, form=form)
 
 #user template
@@ -182,3 +174,5 @@ def like_action(post_id, action):
         current_user.unlike_post(post)
         db.session.commit()
     return redirect(request.referrer)
+
+
