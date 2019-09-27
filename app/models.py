@@ -62,6 +62,8 @@ class User(SearchableMixin,UserMixin,db.Model):
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     about_me = db.Column(db.String(140))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    comments = db.relationship('Comment',backref='commenter',lazy='dynamic')
+
 
     def set_password(self,password):
         self.password = generate_password_hash(password)
@@ -136,7 +138,7 @@ class Post(db.Model):
     caption = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    comments = db.relationship('Comment',backref='post',lazy=True)
+    comments = db.relationship('Comment',backref='comment_post',lazy=True)
     likes = db.relationship('PostLike', backref='post', lazy='dynamic')
     def __repr__(self):
         return f"Post('{self.caption}', '{self.timestamp}', '{self.user_id}')"
@@ -145,8 +147,8 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(100), nullable=False)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
     def __repr__(self):
         return f"Comment('{self.body}', '{self.timestamp}')"
-

@@ -1,5 +1,4 @@
-{% extends "layout.html" %}
-{% block content %}
+{% extends "layout.html" %} {% block content %}
 <div class="container">
     <div class=" post-feed-header">
         <h1 class="display-10 text-center">Feed</h1>
@@ -8,15 +7,14 @@
     <div class="row">
         {% for post in posts %}
         <div class="col-md-4 col-sm-9 card post-content">
-            <img id="myImg" class="post-image rounded"
-                src="{{ url_for('static',filename='pictures/')}}{{post.image_file}}"
-                alt="Post" ">
-            <h3>{{ post.author.username }}</h3>
-            <p>{{ post.caption }}</p>
-            {% if current_user.is_authenticated %}
-            {% if current_user.has_liked_post(post) %}
-            <a href="
-                {{ url_for('main.like_action', post_id=post.id, action='unlike') }}"
+            <img id="myImg" class="post-image rounded" src="{{ url_for('static',filename='pictures/')
+      }}{{ post.image_file }}" alt="Post" ">
+      <h3>{{ post.author.username }}</h3>
+      <p>{{ post.caption }}</p>
+      {% if current_user.is_authenticated %} {% if
+      current_user.has_liked_post(post) %}
+      <a
+        href=" {{ url_for('main.like_action', post_id=post.id, action='unlike') }}"
                 class="like"><i class="fa fa-thumbs-down"
                 aria-hidden="true"></i>Unlike</a>
             {% else %}
@@ -25,6 +23,9 @@
                     aria-hidden="true"></i>&nbsp;&nbsp;Like</a>
             {% endif %}
             <span>{{ post.likes.count() }} likes</span>
+            <a
+                href="{{ url_for('main.create_comment',post_id=post.id) }}">Comments</a>
+
             {% endif %}
         </div>
         {% endfor %}

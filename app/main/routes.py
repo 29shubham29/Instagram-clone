@@ -4,11 +4,11 @@ import os
 from app import db, app
 from datetime import datetime
 from flask import request, current_app, g
-from app.main.forms import UpdateForm, PostForm, SearchForm
+from app.main.forms import UpdateForm, PostForm, SearchForm, CommentForm
 from app.auth.forms import RegistrationForm
 from flask import render_template, url_for, flash, redirect, request
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Post
+from app.models import User, Post, Comment
 from app.main import bp
 
 
@@ -144,3 +144,15 @@ def search():
         return redirect(url_for('main.landing'))
     user,hit = User.search(g.search_form.q.data)
     return render_template('search.html', title=('Search'), user=user) if hit!=0 else render_template('search.html', title=('Search'))
+
+@bp.route('/comments/<int:post_id>',methods=['GET','POST'])
+def create_comment(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    form = CommentForm()
+    comments = Comment.query.filter_by(post_id=post_id).all()
+    if form.validate_on_submit():
+        comment = Comment(body=form.body.data,commenter=current_user,comment_post=post)
+        db.session.add(comment)
+        db.session.commit()
+        return redirect(url_for('main.create_comment',post_id=post_id))
+    return render_template('main/comment_section.html',post=post,form=form,comments=comments)
