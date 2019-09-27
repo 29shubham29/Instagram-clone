@@ -1,19 +1,18 @@
-{% extends 'home_layout.html' %}
-{% block content %}
+{% extends 'home_layout.html' %} {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-sm-6 phoneimage">
             <img src="{{ url_for('static',filename='images/instaphone.png')}}"
-                class="phone">
+                class="phone" />
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="right-column text-center">
                 <img src="{{ url_for('static',filename='images/instagram_logo.png') }}"
-                    class="instsagram-logo">
+                    class="instsagram-logo" />
                 <p class="info">Sign up to see photos and videos from your
                     friends.</p>
                 <form action="" method="POST" class="register">
-                    {{form.hidden_tag()}}
+                    {{ form.hidden_tag() }}
                     <fieldset class="form-group">
                         <div class="form-group">
                             {% if form.email.errors %}
@@ -83,7 +82,7 @@
                 <div class="border-top pt-3">
                     <small class="text-muted">
                         <b>Have an account?</b><a class="ml-2"
-                            href="{{url_for('auth.login')}}" }}>Login</a>
+                            href="{{ url_for('auth.login') }}" }}>Login</a>
                     </small>
                 </div>
             </div>
