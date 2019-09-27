@@ -16,9 +16,11 @@
         href="{{ url_for('static',filename='css/layout.css') }}">
     <script src="https://use.fontawesome.com/3dcc6c3f78.js"></script>
     <script
-        src="https://cdn.jsdelivr.net/npm/moment-js@1.1.15/build/moment.min.js"></script>
+        src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/moment-timezone@0.5.26/index.min.js"></script>
     {% if title %}
-    <title>{{title}}</title>
+    <title>{{ title }}</title>
     {% else %}
     <title>Instacity</title>
     {% endif %}
@@ -42,8 +44,10 @@
                     {% if g.search_form %}
                     <form class="form-inline my-2 my-lg-0" method="GET"
                         action="{{ url_for('main.search') }}">
-                        {{ g.search_form.q(size=20, class='form-control mr-sm-2',
-                                    placeholder= g.search_form.q.label.text) }}
+                        {{
+                                        g.search_form.q(size = 20, class= 'form-control mr-sm-2',
+                                            placeholder = g.search_form.q.label.text)
+                                    }}
                     </form>
                     {% endif %}
                     {% if current_user.is_authenticated %}
@@ -89,9 +93,10 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script>
-        let commentTimestamp = document.querySelector("#comment-timestamp")
-        time = moment(commentTimestamp.innerText)
-        console.log(time)
+        let commentTimestamp = document.querySelectorAll("#comment-timestamp")
+        commentTimestamp.forEach(element => {
+            element.innerText = moment(element.innerText).fromNow()
+        });
 
     </script>
 </body>
