@@ -27,11 +27,6 @@ h1, h2, h3, h4, h5, h6{
   .site-header .navbar-nav .nav-link:hover {
     color: #2b6922;
   }
-
-  .site-header .navbar-nav .nav-link.active {
-    font-weight: 500;
-  }
-
   .content-section {
     background: #ffffff;
     padding: 10px 20px;
@@ -124,6 +119,23 @@ h1, h2, h3, h4, h5, h6{
 @media only screen and (max-width: 700px){
   .modal-content {
     width: 100%;
+  }
+  .new-post-page{
+    margin: 0;
+    padding: 0;
+  }
+  .postpage-img{
+    width: 5em;
+    height: 5em;
+  }
+  .post-left h1{
+    font-size: 1.5em
+  }
+  .error h1{
+    font-size: 1.5em;
+  }
+  .media-body{
+    margin-top: 5px;
   }
 }
 
