@@ -3,6 +3,8 @@
 <div class="container">
     <div class="jumbotron ">
         <h1>Comments</h1>
+        <img src="{{ url_for('static',filename='pictures/')
+    }}{{ post.image_file }}" alt="">
         <p>{{ post.caption }}</p>
     </div>
     <table class="table table.striped">
@@ -13,7 +15,6 @@
             </td>
             <td>
                 {{ comment.body }}
-                <p id="comment-timestamp">{{ comment.timestamp}}</p>
             </td>
         </tr>
         {% endfor %}
