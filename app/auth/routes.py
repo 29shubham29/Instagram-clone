@@ -15,7 +15,7 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('main.landing'))
     form = LoginForm()
-    if form.validate_on_submit():
+    if request.method == 'POST' and form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash("Invalid username or password!",'danger')
@@ -24,14 +24,14 @@ def login():
         next_page = request.args.get('next')
         return redirect(next_page) if next_page else redirect(url_for('main.landing'))
     else:
-        return render_template('auth/login.html',form=form)
+        return render_template('auth/login.html',form=form),200
 
 @bp.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = RegistrationForm()
-    if form.validate_on_submit():
+    if request.method=='POST' and form.validate_on_submit():
         user = User(email=form.email.data,fullname=form.fullname.data,username=form.username.data,)
         user.set_password(form.password.data)
         db.session.add(user)

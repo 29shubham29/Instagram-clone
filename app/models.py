@@ -119,11 +119,6 @@ class User(SearchableMixin,UserMixin,db.Model):
         own = Post.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Post.timestamp.desc())
 
-@login.user_loader
-def load_user(id):
-    return User.query.get(int(id))
-
-
 class PostLike(db.Model):
     __tablename__ = 'post_like'
     id = db.Column(db.Integer, primary_key=True)
@@ -152,3 +147,8 @@ class Comment(db.Model):
 
     def __repr__(self):
         return f"Comment('{self.body}', '{self.timestamp}')"
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+
