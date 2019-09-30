@@ -2,10 +2,15 @@
 {% block content %}
 <div class="container">
     <div class="jumbotron ">
-        <h1>Comments</h1>
+        <h1>Comments:</h1>
+        <br><br>
         <img src="{{ url_for('static',filename='pictures/')
     }}{{ post.image_file }}" alt="">
-        <p>{{ post.caption }}</p>
+        <br><br>
+        <h6>
+            <b>Caption:</b>&nbsp;&nbsp;
+            <span>{{ post.caption }}</span>
+        </h6>
     </div>
     <table class="table table.striped">
         {% for comment in comments %}
