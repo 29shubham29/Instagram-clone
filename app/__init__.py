@@ -9,7 +9,6 @@ from flask_login import LoginManager
 from elasticsearch import Elasticsearch
 from flask import Blueprint
 from flask_moment import Moment
-from celery import Celery
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -19,7 +18,6 @@ moment = Moment()
 login = LoginManager()
 login.login_view = 'auth.login'
 login.login_message_category = 'info'
-celery = Celery(__name__, broker=Config.CELERY_BROKER_URL, backend=Config.CELERY_RESULT_BACKEND)
 
 def create_app(config_class=Config):
     print("app created")
@@ -27,12 +25,10 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
         if app.config['ELASTICSEARCH_URL'] else None
-    print(app.config['CELERY_BROKER_URL'])
     db.init_app(app)
     migrate.init_app(app, db)
     login.init_app(app)
     moment.init_app(app)
-    celery.conf.update(app.config)
     # print(app.config['ELASTICSEARCH_URL'],app.config['CELERY_BROKER_URL'])
 
     from app.errors import bp as errors_bp
