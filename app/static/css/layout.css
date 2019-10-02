@@ -1,144 +1,176 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-body{
-    background: #fafafa;
-    color: #333333;
-    margin-top: 5rem;
-}
-
-h1, h2, h3, h4, h5, h6{
-    color: #444444;
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem;
 }
 
-.new-post-user{
-  margin-top:10em;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #444444;
 }
-.bg-steel{
-  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+
+.new-post-user {
+  margin-top: 10em;
+}
+.bg-steel {
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
 }
 .site-header .navbar-nav .nav-link {
-    color: white;
-    transition: all 0.5s;
-  }
+  color: white;
+  transition: all 0.5s;
+}
 
-  .site-header .navbar-nav .nav-link:hover {
-    color: #2b6922;
-  }
-  .content-section {
-    background: #ffffff;
-    padding: 10px 20px;
-    border: 1px solid #dddddd;
-    border-radius: 3px;
-    margin-bottom: 20px;
-  }
+.site-header .navbar-nav .nav-link:hover {
+  color: #2b6922;
+}
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
 
-  .account-img {
-    height: 200px;
-    width: 200px;
-    margin-right: 20px;
-    margin-bottom: 16px;
-  }
+.account-img {
+  height: 200px;
+  width: 200px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
 
-  .account-heading {
-    font-size: 1.5em;
-  }
-  /* base user styles */
-.post-left{
+.account-heading {
+  font-size: 1.5em;
+}
+/* base user styles */
+.post-left {
   text-align: center;
   color: #fff;
-  margin-top: 4em
+  margin-top: 4em;
 }
-.post-left p{
+.post-left p {
   padding: 20px 20px 0;
 }
-.post-right{
-  border:none;
+.post-right {
+  border: none;
   background: #f8f8f8;
-  padding-top:50px;
+  padding-top: 50px;
 }
-.new-post-page{
+.new-post-page {
   background: #fff;
-    border:1px solid #e6e6e6;
-    box-shadow: 20px 20px 50px 10px pink;
-    margin: 4em 4em;
-    padding:40px;
+  border: 1px solid #e6e6e6;
+  box-shadow: 20px 20px 50px 10px pink;
+  margin: 4em 4em;
+  padding: 40px;
 }
-.postpage-img{
+.postpage-img {
   height: 10em;
   width: 10em;
 }
-.post-image{
+.post-image {
   height: 15em;
   width: 100%;
   margin: 10px;
 }
-.post-content{
+.post-content {
   margin: 20px;
 }
-.feed-image{
+.feed-image {
   height: 300px;
   width: 300px;
 }
 
-.links{
+.links {
   text-decoration: none;
 }
 .post-feed-header {
-  background: #C33764;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #1D2671, #C33764);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #1D2671, #C33764);
+  background: #c33764;
+  background: -webkit-linear-gradient(
+    to right,
+    #1d2671,
+    #c33764
+  );
+  background: linear-gradient(to right, #1d2671, #c33764);
   border-radius: 20px;
 }
-.post-feed-header h1{
+.post-feed-header h1 {
   color: white;
   margin-bottom: 5px;
 }
-.lead{
+.lead {
   color: white;
 }
-#gallery{
+#gallery {
   margin-top: 20px;
 }
+.form-control:focus {
+  border-color: #ff80ff;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(255, 100, 255, 0.5);
+}
 @media only screen and (max-width: 600px) {
-  .account-img{
+  .account-img {
     height: 100px;
     width: 100px;
   }
-.edit-profile-button{
-  margin-left: 0!important
-}
+  .edit-profile-button {
+    margin-left: 0 !important;
+  }
 }
 
-.like:hover{
-  text-decoration: none
+.like:hover {
+  text-decoration: none;
+}
+.design-box {
+  border: 5px solid white;
+  border-top-left-radius: 15%;
+  border-bottom-right-radius: 15%;
+  box-shadow: 20px 20px 50px 10px pink;
+}
+.comment-img {
+  height: 5em;
+  width: 5em;
+  margin-right: 20px;
+  margin-bottom: 16px;
 }
 /* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
+@media only screen and (max-width: 700px) {
   .modal-content {
     width: 100%;
   }
-  .new-post-page{
+  .new-post-page {
     margin: 0;
     padding: 0;
   }
-  .postpage-img{
+  .postpage-img {
     width: 5em;
     height: 5em;
   }
-  .post-left h1{
-    font-size: 1.5em
-  }
-  .error h1{
+  .post-left h1 {
     font-size: 1.5em;
   }
-  .media-body{
+  .error h1 {
+    font-size: 1.5em;
+  }
+  .media-body {
     margin-top: 5px;
   }
 }
 
-.search-result a{
-  text-decoration: none
+.search-result a {
+  text-decoration: none;
 }

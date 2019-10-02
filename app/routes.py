@@ -12,4 +12,5 @@ from app.models import User, Post
 # @app.route("/index")
 # def index():
 #     return render_template('landing.html',posts=posts)
-
+def test():
+    print("Hello")

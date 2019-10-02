@@ -6,14 +6,14 @@
             <h3><span> <img class="rounded-circle account-img"
                         src="{{image_file}}">
                 </span> </h3>
-            <h3>{{user.username}}</h3>
+            <h3><b><i>{{user.username}}</i></b></h3>
             {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6">
             <h3 style="margin-left: 1em">{{ user.followers.count() }}</h3><br>
             <p><b>followers</b></p>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6">
             <h3 style="margin-left: 1em">{{user.followed.count()}}</h3><br>
             <p><b>following</b></p>
         </div>
@@ -22,11 +22,12 @@
     {% if user == current_user %}
     <p><a href="{{ url_for('main.account') }}">Edit your profile</a></p>
     {% elif not current_user.is_following(user)%}
-    <p><a href="{{ url_for('main.follow', username=user.username) }}">Follow</a>
+    <p><a href="{{ url_for('main.follow', username=user.username) }}"
+            class="btn btn-primary">Follow</a>
     </p>
     {% else %}
-    <p><a
-            href="{{ url_for('main.unfollow', username=user.username) }}">Unfollow</a>
+    <p><a href="{{ url_for('main.unfollow', username=user.username) }}"
+            class="btn btn-danger">Unfollow</a>
     </p>
     {% endif %}
     {% else %}

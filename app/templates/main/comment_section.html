@@ -1,52 +1,46 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container">
-    <div class="jumbotron ">
-        <h1>Comments:</h1>
-        <br><br>
-        <img src="{{ url_for('static',filename='pictures/')
-    }}{{ post.image_file }}" alt="">
-        <br><br>
-        <h6>
-            <b>Caption:</b>&nbsp;&nbsp;
-            <span>{{ post.caption }}</span>
-        </h6>
-    </div>
-    <table class="table table.striped">
+<div class="container design-box">
+
+    <div class="row mt-5">
         {% for comment in comments %}
-        <tr>
-            <td>
-                {{ comment.commenter.username}}
-            </td>
-            <td>
-                {{ comment.body }}
-                <p id="comment-timestamp">{{ comment.timestamp }}</p>
-            </td>
-        </tr>
+        <div class="col-md-2 col-lg-2">
+            <img src="{{ url_for('static',filename='pictures/')
+                }}{{ comment.commenter.image_file }}"
+                class="rounded-circle comment-img" />
+            <p class="text-secondary" id="comment-timestamp">
+                {{comment.timestamp}}
+            </p>
+        </div>
+        <div class="col-md-10 col-lg-10">
+            <p>
+                <a class="float-left" style="color: brown"
+                    href="{{url_for('main.user',username=comment.commenter.username)}}"><strong><i>{{comment.commenter.username}}</i></strong></a>
+            </p>
+            <div class="clearfix"></div>
+            <p>{{comment.body}}
+        </div>
         {% endfor %}
-    </table>
-    <div class="col-lg-12 col-md-12">
-        <form action="" method="POST">
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <div class="form-group">
-                    {{ form.body.label(class='form-control-label') }}
-                    {% if form.body.errors %}
-                    {{ form.body(class='form-control is-invalid') }}
-                    <div class="invalid-feedback">
-                        {% for error in form.body.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    {{ form.body(class='form-control' , placeholder='comment..') }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.submit(class = "btn btn-outline-primary mr-auto") }}
-                </div>
-            </fieldset>
-        </form>
     </div>
+    <hr>
+    <form action="" method="POST" autocomplete="off">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label>Post your comment:</label>
+            {% if form.body.errors %}
+            {{ form.body(class='form-control is-invalid') }}
+            <div class="invalid-feedback">
+                {% for error in form.body.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ form.body(class='form-control' , placeholder='comment..') }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class = "btn btn-outline-primary mr-auto") }}
+        </div>
+    </form>
 </div>
 {% endblock %}

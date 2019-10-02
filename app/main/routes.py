@@ -10,6 +10,7 @@ from flask import render_template, url_for, flash, redirect, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Post, Comment
 from app.main import bp
+from app import celery
 
 
 @bp.route("/", methods=['GET', 'POST'])
@@ -156,3 +157,13 @@ def create_comment(post_id):
         db.session.commit()
         return redirect(url_for('main.create_comment',post_id=post_id))
     return render_template('main/comment_section.html',post=post,form=form,comments=comments)
+
+@bp.route('/export/<username>')
+def process(username):
+    export_comment.delay(username)
+    print("exporting")
+    return redirect(url_for('main.home'))
+
+@celery.task(name='celery_export.comment')
+def export_comment(username):
+    return(username)

@@ -23,9 +23,8 @@
                     aria-hidden="true"></i>&nbsp;&nbsp;Like</a>
             {% endif %}
             <span>{{ post.likes.count() }} likes</span>
-            <a
-                href="{{ url_for('main.create_comment',post_id=post.id) }}">Comments</a>
-
+            <a href="{{ url_for('main.create_comment',post_id=post.id) }}"
+                style="text-decoration: none">Comments</a>
             {% endif %}
         </div>
         {% endfor %}

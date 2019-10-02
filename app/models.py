@@ -71,9 +71,6 @@ class User(SearchableMixin,UserMixin,db.Model):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
-
     liked = db.relationship(
         'PostLike', foreign_keys='PostLike.user_id',
         backref='user', lazy='dynamic'
@@ -118,6 +115,10 @@ class User(SearchableMixin,UserMixin,db.Model):
                 followers.c.follower_id == self.id)
         own = Post.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Post.timestamp.desc())
+
+    def __repr__(self):
+            return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+
 
 class PostLike(db.Model):
     __tablename__ = 'post_like'
